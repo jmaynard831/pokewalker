@@ -10,7 +10,7 @@ export default class OptionsScene extends Phaser.Scene {
     }).setOrigin(0.5);
 
     this.input.keyboard.once('keydown-ESC', () => {
-      this.scene.start('MenuScene');
+      this.scene.start('DayCareScene');
     });
   }
 }

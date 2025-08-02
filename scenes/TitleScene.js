@@ -4,21 +4,16 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('titleBG', 'assets/bg-title.png');
+    this.load.image('titleBG', 'assets/bg_title.png');
   }
 
   create() {
-    this.add.image(400, 300, 'titleBG').setDisplaySize(800, 600);
+    const bg = this.add.image(0, 0, 'titleBG')
+      .setOrigin(0) // top-left corner
+      .setDisplaySize(this.scale.width, this.scale.height);
 
-    // const text = this.add.text(400, 500, 'Press Any Key to Start', {
-    //   font: '32px Arial',
-    //   fill: '#ffffff'
-    // });
-    // text.setOrigin(0.5);
-
-    this.input.keyboard.once('keydown', () => {
-  this.scene.start('MenuScene');
-});
-
+    this.input.keyboard.once('keydown-ENTER', () => {
+      this.scene.start('GameScene');
+    });
   }
 }
