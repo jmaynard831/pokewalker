@@ -7,3 +7,5 @@ following pokemon. autobattling system to level up. fun osts to walk to.
 get your steps in. 
 
 catch them all.
+
+run with python -m http.server
