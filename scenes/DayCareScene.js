@@ -22,19 +22,19 @@ export default class DayCareScene extends Phaser.Scene {
     const ui_daycare = this.add.image(0, 0, 'menuLeft').setOrigin(0, 0);
     const bg_daycareman = this.add.image(630, 0, 'bg_daycareman').setOrigin(0, 0);
 
-    this.menuOptions = ['Check Dex', 'Visit Mart', 'Go Walking', 'Options'];
+    this.menuOptions = ['See Eggs','Check Dex', 'Visit Mart', 'Go Walking', 'Options'];
     this.currentIndex = 0;
     this.optionTexts = [];
 
     const startX = 100;
     const startY = 150;
-    const spacing = 40;
+    const spacing = 80;
 
     // add menu items 
     for (let i = 0; i < this.menuOptions.length; i++) {
       const option = this.add.text(startX, startY + i * spacing, this.menuOptions[i], {
-        font: '24px Arial',
-        fill: '#ffffff'
+        font: '72px "Comic Neue"',
+        fill: '#df109aff'
       });
       this.optionTexts.push(option);
     }
@@ -73,7 +73,7 @@ export default class DayCareScene extends Phaser.Scene {
       if (index === this.currentIndex) {
         text.setStyle({ fill: '#ffff00' }); 
       } else {
-        text.setStyle({ fill: '#ffffff' });
+        text.setStyle({ fill: '#df109aff' });
       }
     });
   }

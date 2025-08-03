@@ -9,11 +9,11 @@ export default class TitleScene extends Phaser.Scene {
 
   create() {
     const bg = this.add.image(0, 0, 'titleBG')
-      .setOrigin(0) // top-left corner
+      .setOrigin(0)
       .setDisplaySize(this.scale.width, this.scale.height);
 
     this.input.keyboard.once('keydown-ENTER', () => {
-      this.scene.start('GameScene');
+      this.scene.start('DayCareScene');
     });
   }
 }

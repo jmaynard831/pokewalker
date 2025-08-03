@@ -14,7 +14,7 @@ const config = {
   backgroundColor: '#0fff0f',
   scene: [DayCareScene, TitleScene, CutsceneScene, OptionsScene,DexScene,MartScene, WalkScene],
   scale: {
-    mode: Phaser.Scale.RESIZE, // or FIT/ENVELOP
+    mode: Phaser.Scale.RESIZE, //think about mobile gaming i dunno
     autoCenter: Phaser.Scale.CENTER_BOTH
   }
 };
