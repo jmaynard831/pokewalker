@@ -100,20 +100,20 @@ export default class CutsceneScene extends Phaser.Scene {
     }
   }
 
- animateLetter(letterText) {
-  letterText.y = 10; // start 10px below
+  animateLetter(letterText) {
+    letterText.y = 10; // start 10px below
 
-  this.tweens.chain({
-    tweens: [
-      {
-        targets: letterText,
-        y: 0,
-        duration: 30,
-        ease: 'Sine.easeInOut'
-      }
-    ]
-  });
-}
+    this.tweens.chain({
+      tweens: [
+        {
+          targets: letterText,
+          y: 0,
+          duration: 30,
+          ease: 'Sine.easeInOut'
+        }
+      ]
+    });
+  }
 
 
 

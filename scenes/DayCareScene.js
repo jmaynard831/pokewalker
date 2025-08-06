@@ -1,6 +1,8 @@
 import { preloadAssets } from '../preload.js';
 import { createPlayer } from '../player.js';
 import { handleMovement } from '../movement.js';
+import { GameData } from '../GameData.js';
+import { Egg } from '../dataObjects/Egg.js';
 //This is hte daycare hubworld. the player controls a menu clicker. 
 export default class DayCareScene extends Phaser.Scene {
   constructor() {
@@ -16,13 +18,21 @@ export default class DayCareScene extends Phaser.Scene {
     this.load.image('ui_mart', 'assets/UI/UI_menuitem_shop.png');
     this.load.image('ui_walk', 'assets/UI/UI_menuitem_walk.png');
     this.load.image('ui_pointer', 'assets/UI/ui_pointer.png');
+
+    //For Now, if the egg inventory is empty on startup, add a couple dudes in tehre. 
+    if(GameData.eggList.length===0){
+      GameData.eggList.push(new Egg( 1, "green"));
+      GameData.eggList.push(new Egg( 4, "red"));
+      GameData.eggList.push(new Egg( 7, "blue"));
+    }
   }
 
-   create() {
+  create() {
     const ui_daycare = this.add.image(0, 0, 'menuLeft').setOrigin(0, 0);
     const bg_daycareman = this.add.image(630, 0, 'bg_daycareman').setOrigin(0, 0);
 
-    this.menuOptions = ['See Eggs','Check Dex', 'Visit Mart', 'Go Walking', 'Options'];
+    //TODO: make the damn switch statement build off the menuOptions array so i dont have to change strings twice ugh
+    this.menuOptions = ['See Eggs', 'dex', 'Visit Mart', 'Go Walking', 'Options'];
     this.currentIndex = 0;
     this.optionTexts = [];
 
@@ -45,7 +55,7 @@ export default class DayCareScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     this.lastMoveTime = 0;
-    this.moveCooldown = 150; 
+    this.moveCooldown = 150;
   }
 
   update(time, delta) {
@@ -71,7 +81,7 @@ export default class DayCareScene extends Phaser.Scene {
   updateMenuHighlight() {
     this.optionTexts.forEach((text, index) => {
       if (index === this.currentIndex) {
-        text.setStyle({ fill: '#ffff00' }); 
+        text.setStyle({ fill: '#ffff00' });
       } else {
         text.setStyle({ fill: '#df109aff' });
       }
@@ -83,8 +93,10 @@ export default class DayCareScene extends Phaser.Scene {
     console.log(`Selected: ${selected}`);
 
     switch (selected) {
-      case 'Check Dex':
-        this.scene.start('DexScene');
+      case 'dex':
+        //test code for adding eggs to inventory
+        console.log(GameData.inventory);
+        //this.scene.start('DexScene');
         break;
       case 'Visit Mart':
         this.scene.start('MartScene');
