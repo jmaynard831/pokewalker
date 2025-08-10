@@ -1,8 +1,6 @@
-import { preloadAssets } from '../preload.js';
-import { createPlayer } from '../player.js';
-import { handleMovement } from '../movement.js';
 import { GameData } from '../GameData.js';
 import { Egg } from '../dataObjects/Egg.js';
+import { mons } from '../dataObjects/Pokemon.js';
 //This is hte daycare hubworld. the player controls a menu clicker. 
 export default class DayCareScene extends Phaser.Scene {
   constructor() {
@@ -24,6 +22,7 @@ export default class DayCareScene extends Phaser.Scene {
       GameData.eggList.push(new Egg( 1, "green"));
       GameData.eggList.push(new Egg( 4, "red"));
       GameData.eggList.push(new Egg( 7, "blue"));
+      GameData.pokemonList.push(mons.find(mon => mon.number === 322)) //add a numel
     }
   }
 

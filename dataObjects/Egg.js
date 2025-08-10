@@ -18,12 +18,16 @@ export class Egg {
   //method to check if an egg is gonna hatch
   hatchCheck(){
     //we have the species id, so find the pokemon in the list. 
-    species = mons.find(mon => mon.number === this.speciesID)
+    let species = mons.find(mon => mon.number === this.speciesID)
     let hatchNumber = species.stepcount;
     if (this.stepsTaken>=hatchNumber){
       //uhh then hatch it i guess. not sure where to plug this in yet. 
       this.isHatched = true;
     }
+  }
+
+   getDescription() {
+    return `${this.color} Egg (#${this.speciesID}) - ${this.stepsTaken} steps`;
   }
   
   //thinking: what if when the ishatched is true, we display a button on the screen, and you keep walking, but the player can make the 
