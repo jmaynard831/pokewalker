@@ -1,5 +1,5 @@
 import { GameData } from '../GameData.js';
-import { Egg } from '../dataObjects/Egg.js';
+import { routes } from '../dataObjects/Route.js';
 
 export default class WalkScene extends Phaser.Scene {
     constructor() {
@@ -23,7 +23,7 @@ export default class WalkScene extends Phaser.Scene {
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         // ok so this is hte top level menu
-        this.menuOptions = ['Pick Egg', 'Pick Walking Mon', 'Pick Route', 'Back'];
+        this.menuOptions = ['Pick Egg', 'Pick Walking Mon', 'Pick Route', 'GO!', 'Back'];
         this.optionTexts = [];
         this.drawMenu();
 
@@ -73,6 +73,7 @@ export default class WalkScene extends Phaser.Scene {
     updateMenuHighlight() {
         this.optionTexts.forEach((text, index) => {
             // If we're in pickEgg and this is the selectedEgg, keep it highlighted green
+            //bro condense this 
             if (
                 this.menuState === 'pickEgg' &&
                 GameData.selectedEgg &&
@@ -80,13 +81,20 @@ export default class WalkScene extends Phaser.Scene {
             ) {
                 text.setStyle({ fill: '#00ff00' }); // chosen egg
             }
-            if (
+            else if (
                 this.menuState === 'pickwalkingmon' &&
                 GameData.selectedMon &&
                 text.text === GameData.selectedMon.name
             ) {
                 text.setStyle({ fill: '#00ff00' }); // chosen mon
-            } 
+            }
+            else if (
+                this.menuState === 'pickRoute' &&
+                GameData.selectedRoute &&
+                text.text === GameData.selectedRoute.name
+            ) {
+                text.setStyle({ fill: '#00ff00' }); // chosen route
+            }
             else {
                 text.setStyle({
                     fill: index === this.currentIndex ? '#ffff00' : '#df109aff'
@@ -123,8 +131,29 @@ export default class WalkScene extends Phaser.Scene {
                     break;
                 case 'Pick Route':
                     console.log(GameData)
+                    this.menuState = 'pickRoute';
+                    //this draws all the routes in the list
+                    this.menuOptions = routes.map(
+                        route => route.name
+                    );
+                    this.menuOptions.push('Back');
+                    this.currentIndex = 0;
+                    this.drawMenu();
+                    break;
+                case 'GO!':
+                    //if the three selecteds are selected, then shift scene to 
+                    //well its obviously a walking scene but i used that name 
+                    if(GameData.selectedRoute && GameData.selectedMon && GameData.selectedEgg ){
+                        //console.log("shift to new scene")
+                        this.scene.start('WalkingScene');
+                    }
+
                     break;
                 case 'Back':
+                    //reset the picked things here!
+                    GameData.selectedRoute = {};
+                    GameData.selectedMon = {};
+                    GameData.selectedEgg = {};
                     this.scene.start('DayCareScene');
                     break;
             }
@@ -167,11 +196,30 @@ export default class WalkScene extends Phaser.Scene {
                 this.returnToMainMenu();
             }
         }
+        else if (this.menuState === 'pickRoute') {
+            //this is all the logic for selecting a route. match the chosen with the object
+            if (selected === 'Back') {
+                this.returnToMainMenu();
+            } else {
+                // Find the route object that matches the description
+                const chosenRoute = routes.find(
+                    route => route.name === selected
+                );
+
+                if (chosenRoute) {
+                    GameData.selectedRoute = chosenRoute;
+                    console.log(`Route chosen: ${chosenRoute.name}`);
+                }
+
+                // Return to main menu
+                this.returnToMainMenu();
+            }
+        }
     }
 
     returnToMainMenu() {
         this.menuState = 'main';
-        this.menuOptions = ['Pick Egg', 'Pick Walking Mon', 'Pick Route', 'Back'];
+        this.menuOptions = ['Pick Egg', 'Pick Walking Mon', 'Pick Route','GO!', 'Back'];
         this.currentIndex = 0;
         this.drawMenu();
     }

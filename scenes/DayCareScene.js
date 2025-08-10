@@ -1,6 +1,7 @@
 import { GameData } from '../GameData.js';
 import { Egg } from '../dataObjects/Egg.js';
 import { mons } from '../dataObjects/Pokemon.js';
+
 //This is hte daycare hubworld. the player controls a menu clicker. 
 export default class DayCareScene extends Phaser.Scene {
   constructor() {
